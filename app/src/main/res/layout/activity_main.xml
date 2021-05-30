@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toStartOf="@id/btn_weather_by_id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-         />
+        />
 
 
     <Button
@@ -38,7 +38,7 @@
         app:layout_constraintStart_toEndOf="@id/btn_city_by_id"
         app:layout_constraintEnd_toStartOf="@id/btn_weather_by_name"
         app:layout_constraintTop_toTopOf="@id/btn_city_by_id"
-         />
+        />
 
     <Button
         android:id="@+id/btn_weather_by_name"

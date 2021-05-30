@@ -13,4 +13,6 @@
     <string name="weather_by_id">WEATHER BY ID</string>
     <string name="weather_by_name">WEATHER BY NAME</string>
     <string name="city_name">City Name...</string>
+    <string name="get_city_id">Get city id</string>
+    <string name="search">search...</string>
 </resources>

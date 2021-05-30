@@ -3,6 +3,7 @@ package com.example.clime.activities;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,6 +23,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.clime.R;
+import com.example.clime.adapters.WeatherAdapter;
 import com.example.clime.interfaces.VolleyResponseListener;
 import com.example.clime.interfaces.WeatherByIDResponseListener;
 import com.example.clime.interfaces.WeatherByNameResponseListener;
@@ -32,11 +36,14 @@ import org.json.JSONArray;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.content_main);
 
         EditText dataInput;
         ListView weatherReportsListView;
@@ -46,7 +53,16 @@ public class MainActivity extends AppCompatActivity {
         dataInput = findViewById(R.id.et_input);
 
         //ListView
-        weatherReportsListView = findViewById(R.id.lv_weather_reports);
+//        weatherReportsListView = findViewById(R.id.lv_weather_reports);
+        //Recycler view
+        recyclerView = findViewById(R.id.lv_weather_reports);
+        recyclerView.setHasFixedSize(true);
+        //Use a linear layout manager
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+//        //Specify an adapter
+//        mAdapter = new WeatherAdapter(myDataset);
+//        recyclerView.setAdapter(mAdapter);
 
         //Buttons
         btnCityId = findViewById(R.id.btn_city_by_id);
@@ -80,8 +96,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(List<WeatherReportModel> weatherReportModels) {
 //                        Toast.makeText(MainActivity.this,  weatherReportModels.toString(), Toast.LENGTH_SHORT).show();
-                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
-                        weatherReportsListView.setAdapter(arrayAdapter);
+//                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
+//                        weatherReportsListView.setAdapter(arrayAdapter);
+                        //=======================
+                        //Specify an adapter
+                        mAdapter = new WeatherAdapter(weatherReportModels, MainActivity.this);
+                        recyclerView.setAdapter(mAdapter);
+
                     }
 
                     @Override
@@ -99,8 +120,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(List<WeatherReportModel> weatherReportModels) {
 //                        Toast.makeText(MainActivity.this,  weatherReportModels.toString(), Toast.LENGTH_SHORT).show();
-                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
-                        weatherReportsListView.setAdapter(arrayAdapter);
+//                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
+//                        weatherReportsListView.setAdapter(arrayAdapter);
                     }
 
                     @Override

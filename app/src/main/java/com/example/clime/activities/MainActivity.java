@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //String cityID = weatherService.getCityID(cityName);
-                weatherService.getCityID(dataInput.getText().toString(), new VolleyResponseListener() {
+                weatherService.getCityID(dataInput.getText().toString().trim(), new VolleyResponseListener() {
                     @Override
                     public void onResponse(String cityID) {
                         Toast.makeText(MainActivity.this, "Returned an ID of: " + cityID, Toast.LENGTH_SHORT).show();
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                weatherService.getWeatherReportByID("44418");
-                weatherService.getWeatherReportByID(dataInput.getText().toString(), new WeatherByIDResponseListener() {
+                weatherService.getWeatherReportByID(dataInput.getText().toString().trim(), new WeatherByIDResponseListener() {
                     @Override
                     public void onResponse(List<WeatherReportModel> weatherReportModels) {
 //                        Toast.makeText(MainActivity.this,  weatherReportModels.toString(), Toast.LENGTH_SHORT).show();
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //                weatherService.getWeatherReportByID("44418");
-                weatherService.getWeatherReportByCityName(dataInput.getText().toString(), new WeatherByNameResponseListener() {
+                weatherService.getWeatherReportByCityName(dataInput.getText().toString().trim(), new WeatherByNameResponseListener() {
                     @Override
                     public void onResponse(List<WeatherReportModel> weatherReportModels) {
 //                        Toast.makeText(MainActivity.this,  weatherReportModels.toString(), Toast.LENGTH_SHORT).show();

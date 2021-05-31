@@ -1,5 +1,6 @@
 package com.example.clime.activities;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,21 +71,27 @@ public class MainActivity extends AppCompatActivity {
         btnWeatherById = findViewById(R.id.btn_weather_by_id);
         btnWeatherByName = findViewById(R.id.btn_weather_by_name);
 
+        progressDialog = new ProgressDialog(this);
+
         WeatherService weatherService = new WeatherService(MainActivity.this);
 
         btnCityId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.setMessage("Loading Please Wait...");
+                progressDialog.show();
 
                 //String cityID = weatherService.getCityID(cityName);
                 weatherService.getCityID(dataInput.getText().toString().trim(), new VolleyResponseListener() {
                     @Override
                     public void onResponse(String cityID) {
                         Toast.makeText(MainActivity.this, "Returned an ID of: " + cityID, Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                     @Override
                     public void onError(String error) {
                         Toast.makeText(MainActivity.this, "Something went wrong:(", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 });
             }
@@ -91,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
         btnWeatherById.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.setMessage("Loading Please Wait...");
+                progressDialog.show();
 //                weatherService.getWeatherReportByID("44418");
                 weatherService.getWeatherReportByID(dataInput.getText().toString().trim(), new WeatherByIDResponseListener() {
                     @Override
@@ -102,12 +112,14 @@ public class MainActivity extends AppCompatActivity {
                         //Specify an adapter
                         mAdapter = new WeatherAdapter(weatherReportModels, MainActivity.this);
                         recyclerView.setAdapter(mAdapter);
+                        progressDialog.dismiss();
 
                     }
 
                     @Override
                     public void onError(String error) {
                         Toast.makeText(MainActivity.this, "Something went wrong:(", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 });
             }
@@ -115,18 +127,25 @@ public class MainActivity extends AppCompatActivity {
         btnWeatherByName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //                weatherService.getWeatherReportByID("44418");
+                progressDialog.setMessage("Loading Please Wait...");
+                progressDialog.show();
+                // weatherService.getWeatherReportByID("44418");
                 weatherService.getWeatherReportByCityName(dataInput.getText().toString().trim(), new WeatherByNameResponseListener() {
                     @Override
                     public void onResponse(List<WeatherReportModel> weatherReportModels) {
 //                        Toast.makeText(MainActivity.this,  weatherReportModels.toString(), Toast.LENGTH_SHORT).show();
 //                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
 //                        weatherReportsListView.setAdapter(arrayAdapter);
+                        //Specify an adapter
+                        mAdapter = new WeatherAdapter(weatherReportModels, MainActivity.this);
+                        recyclerView.setAdapter(mAdapter);
+                        progressDialog.dismiss();
                     }
 
                     @Override
                     public void onError(String error) {
                         Toast.makeText(MainActivity.this, "Something went wrong:(", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 });
 //                Toast.makeText(MainActivity.this, "You clicked Me:)", Toast.LENGTH_SHORT).show();

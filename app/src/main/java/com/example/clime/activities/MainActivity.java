@@ -62,32 +62,24 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
 
-
-
         EditText dataInput;
         ListView weatherReportsListView;
-        Button btnCityId, btnWeatherById, btnWeatherByName, btnSignOut;
+        Button btnCityId, btnWeatherById, btnWeatherByName;
 
         //EditText
         dataInput = findViewById(R.id.et_input);
 
-        //ListView
-//        weatherReportsListView = findViewById(R.id.lv_weather_reports);
         //Recycler view
         recyclerView = findViewById(R.id.lv_weather_reports);
         recyclerView.setHasFixedSize(true);
         //Use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-//        //Specify an adapter
-//        mAdapter = new WeatherAdapter(myDataset);
-//        recyclerView.setAdapter(mAdapter);
 
         //Buttons
         btnCityId = findViewById(R.id.btn_city_by_id);
         btnWeatherById = findViewById(R.id.btn_weather_by_id);
         btnWeatherByName = findViewById(R.id.btn_weather_by_name);
-        btnSignOut = findViewById(R.id.btn_sign_out);
 
         progressDialog = new ProgressDialog(this);
 
@@ -119,21 +111,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressDialog.setMessage("Loading Please Wait...");
                 progressDialog.show();
-//                weatherService.getWeatherReportByID("44418");
                 weatherService.getWeatherReportByID(dataInput.getText().toString().trim(), new WeatherByIDResponseListener() {
                     @Override
                     public void onResponse(List<WeatherReportModel> weatherReportModels) {
-//                        Toast.makeText(MainActivity.this,  weatherReportModels.toString(), Toast.LENGTH_SHORT).show();
-//                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
-//                        weatherReportsListView.setAdapter(arrayAdapter);
-                        //=======================
                         //Specify an adapter
                         mAdapter = new WeatherAdapter(weatherReportModels, MainActivity.this);
                         recyclerView.setAdapter(mAdapter);
                         progressDialog.dismiss();
-
                     }
-
                     @Override
                     public void onError(String error) {
                         Toast.makeText(MainActivity.this, "Something went wrong:(", Toast.LENGTH_SHORT).show();
@@ -147,14 +132,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressDialog.setMessage("Loading Please Wait...");
                 progressDialog.show();
-                // weatherService.getWeatherReportByID("44418");
                 weatherService.getWeatherReportByCityName(dataInput.getText().toString().trim(), new WeatherByNameResponseListener() {
                     @Override
                     public void onResponse(List<WeatherReportModel> weatherReportModels) {
-//                        Toast.makeText(MainActivity.this,  weatherReportModels.toString(), Toast.LENGTH_SHORT).show();
-//                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
-//                        weatherReportsListView.setAdapter(arrayAdapter);
-                        //Specify an adapter
                         mAdapter = new WeatherAdapter(weatherReportModels, MainActivity.this);
                         recyclerView.setAdapter(mAdapter);
                         progressDialog.dismiss();
@@ -166,24 +146,30 @@ public class MainActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 });
-//                Toast.makeText(MainActivity.this, "You clicked Me:)", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        btnSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressDialog.setMessage("Signing out...");
-                progressDialog.show();
-                firebaseAuth.signOut();
-                finish();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                progressDialog.dismiss();
-
-
             }
         });
 
     }
+    // Start of Menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_sign_out) {
+            progressDialog.setMessage("Signing out...");
+            progressDialog.show();
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            progressDialog.dismiss();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    // End of menu
 
 }

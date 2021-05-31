@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class RegisterActivity extends AppCompatActivity {
     private EditText register_email, register_password;
     private Button btn_register;
+    private TextView tv_forgot_password, tv_go_to_login;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     @Override
@@ -43,7 +44,24 @@ public class RegisterActivity extends AppCompatActivity {
 
         btn_register = findViewById(R.id.btn_register);
 
+        tv_forgot_password = findViewById(R.id.tv_forgot_password);
+        tv_go_to_login = findViewById(R.id.tv_go_to_login);
+
         progressDialog = new ProgressDialog(this);
+
+        tv_forgot_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, ResetPasswordActivity.class));
+            }
+        });
+
+        tv_go_to_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            }
+        });
 
 
         btn_register.setOnClickListener(new View.OnClickListener() {

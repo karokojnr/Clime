@@ -39,7 +39,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         holder.tv_weather_state_name.setText(weatherReportModelList.get(position).getWeather_state_name());
         holder.tv_weather_applicable_date.setText(weatherReportModelList.get(position).getApplicable_date());
 //        Glide.with(ctx).load(weatherReportModelList.get(position).getImageURL).into(holder.weather_icon);
-        Glide.with(this.ctx).load("https://image.flaticon.com/icons/png/512/4812/4812819.png").into(holder.weather_icon);
+        Glide.with(this.ctx).load("https://www.metaweather.com/static/img/weather/png/"+weatherReportModelList.get(position).getWeather_state_abbr()+".png").into(holder.weather_icon);
 
     }
 

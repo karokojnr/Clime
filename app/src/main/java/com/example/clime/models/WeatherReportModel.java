@@ -60,7 +60,7 @@ public class WeatherReportModel {
 //    }
     @Override
     public String toString() {
-        return weather_state_name + "Date: " + applicable_date  +
+        return weather_state_abbr + weather_state_name + "Date: " + applicable_date  +
                 "Lo: " + min_temp +
                 "Hi: " + max_temp +
                 "Temp: " + the_temp;

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "110780139060",
+    "project_id": "clime-6ce8d",
+    "storage_bucket": "clime-6ce8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110780139060:android:1cc2d8461670ce53ea2c61",
+        "android_client_info": {
+          "package_name": "com.example.clime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110780139060-kh7iffcu9031gp8c1fbc23a19vpt13mk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_bD2H2ikGGQRGkbIsCkrZ_BPOWBuSaKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110780139060-kh7iffcu9031gp8c1fbc23a19vpt13mk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

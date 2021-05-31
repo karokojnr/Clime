@@ -49,6 +49,7 @@ public class WeatherService {
                 volleyResponseListener.onError("Something went wrong:(");
             }
         });
+
         // Add the request to the RequestQueue.
         WeatherServiceSingleton.getInstance(ctx).addToRequestQueue(jsonArrayRequest);
     }
